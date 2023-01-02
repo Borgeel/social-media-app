@@ -1,34 +1,34 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { GoogleLogin, googleLogout } from "@react-oauth/google";
+
+// Google Auth
+import { GoogleLogin } from "@react-oauth/google";
+import jwt_decode from "jwt-decode";
 import { FcGoogle } from "react-icons/fc";
+
+// Assets
 import shareVideo from "../assets/share.mp4";
 import logo from "../assets/logowhite.png";
-import jwt_decode from "jwt-decode";
 
+// Sanity Client
 import { client } from "../client";
 
 const Login = () => {
   const navigate = useNavigate();
 
   const responseGoogle = (response) => {
-    localStorage.setItem("user", JSON.stringify(response.profileObj));
+    const decoded = jwt_decode(response.credential);
+    localStorage.setItem("user", JSON.stringify(decoded));
 
-    // Destructure response
-    const { clientId, credential } = response;
+    const { sub, name, picture } = decoded;
 
-    // Decode credential in order to access profile info
-    const decoded = jwt_decode(credential);
-
-    // Update sanity via client
     const doc = {
-      _id: clientId,
+      _id: sub,
       _type: "user",
-      userName: decoded.name,
-      image: decoded.picture,
+      userName: name,
+      image: picture,
     };
 
-    // Check whether user already exists, if not update sanity
     client.createIfNotExists(doc).then(() => {
       navigate("/", { replace: true });
     });
@@ -54,18 +54,19 @@ const Login = () => {
 
           <div className="shadow-2xl">
             <GoogleLogin
-              clientId={process.env.REACT_GOOGLE_API_TOKEN}
-              // render={(renderProps) => (
-              //   <button
-              //     type="button"
-              //     className="bg-mainColor flex justify-center items-center p-3 rounded-md cursor-pointer outline-none hover:scale-105 transition-all ease-in-out delay-100"
-              //     onClick={renderProps.onClick}
-              //     disabled={renderProps.disabled}
-              //   >
-              //     <FcGoogle className="mr-4" /> Sign in with Google
-              //   </button>
-              // )}
+              // clientId={process.env.REACT_PUBLIC_GOOGLE_API_TOKEN}
+              render={(renderProps) => (
+                <button
+                  type="button"
+                  className="bg-mainColor flex justify-center items-center p-3 rounded-md cursor-pointer outline-none hover:scale-105 transition-all ease-in-out delay-100"
+                  onClick={renderProps.onClick}
+                  disabled={renderProps.disabled}
+                >
+                  <FcGoogle className="mr-4" /> Sign in with Google
+                </button>
+              )}
               onSuccess={responseGoogle}
+              // Ovdje mozes imat gresku. Sjeti se
               onFailure={responseGoogle}
               cookiePolicy="single_host_origin"
             />
