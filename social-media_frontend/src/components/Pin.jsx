@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { MdDownloadForOffline } from "react-icons/md";
@@ -27,10 +27,10 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
         .insert("after", "save[-1]", [
           {
             _key: uuidv4(),
-            userId: user.sub,
+            userId: user?.sub,
             postedBy: {
               _type: "postedBy",
-              _ref: user.sub,
+              _ref: user?.sub,
             },
           },
         ])
