@@ -50,7 +50,7 @@ const CreatePin = ({ user }) => {
     }
   };
 
-  const savePin = () => {
+  const savePinAndUpdateDataBase = () => {
     if (title && about && destination && imageAsset?._id && category) {
       const doc = {
         _type: "pin",
@@ -196,7 +196,7 @@ const CreatePin = ({ user }) => {
             <div className="flex justify-end items-end mt-5">
               <button
                 type="button"
-                onClick={savePin}
+                onClick={savePinAndUpdateDataBase}
                 className="bg-red-500 text-white font-bold p-2 rounded-full w-28 outline-none"
               >
                 Save Pin

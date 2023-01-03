@@ -43,7 +43,7 @@ function Home() {
       <div className="flex md:hidden flex-row">
         <div className="p-2 w-full flex flex-row justify-between items-center shadow-md">
           <HiMenu
-            size={40}
+            size={32}
             className="cursor-pointer"
             onClick={() => setToggleSidebar(true)}
           />
