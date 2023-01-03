@@ -95,64 +95,66 @@ export const feedQuery = `*[_type == "pin"] | order(_createdAt desc) {
 }`;
 
 export const pinDetailQuery = (pinId) => {
-  const query = `*[_type == "pin" && _id == '${pinId}'] {
-    image {
-      asset -> {
+  const query = `*[_type == "pin" && _id == '${pinId}']{
+    image{
+      asset->{
         url
       }
     },
     _id,
-    title,
+    title, 
     about,
     category,
     destination,
-    postedBy -> {
+    postedBy->{
       _id,
       userName,
       image
     },
-    save[] {
-      postedBy -> {
+   save[]{
+      postedBy->{
         _id,
         userName,
         image
       },
     },
-    comments[] {
+    comments[]{
       comment,
       _key,
-      postedBy -> {
+      postedBy->{
         _id,
         userName,
         image
-      }
+      },
     }
   }`;
+  return query;
 };
 
-const pinDetailMorePinQuery = (pin) => {
-  const query = `*[_type == "pin" && category == '${pin.category}' && _id != '${pin._id}'] {
-    image {
-      asset -> {
+export const pinDetailMorePinQuery = (pin) => {
+  const query = `*[_type == "pin" && category == '${pin.category}' && _id != '${pin._id}' ]{
+    image{
+      asset->{
         url
       }
     },
     _id,
     destination,
-    postedBy -> {
-      _id, 
+    postedBy->{
+      _id,
       userName,
       image
-    }, 
-    save[] {
+    },
+    save[]{
       _key,
-      postedBy -> {
+      postedBy->{
         _id,
         userName,
         image
       },
-    }
+    },
   }`;
+  return query;
 };
 
 export const searchQuery = (searchTerm) => {

@@ -11,10 +11,10 @@ const CreatePin = ({ user }) => {
   const [title, setTitle] = useState("");
   const [about, setAbout] = useState("");
   const [loading, setLoading] = useState(false);
-  const [destination, setDestination] = useState();
-  const [fields, setFields] = useState();
-  const [category, setCategory] = useState();
-  const [imageAsset, setImageAsset] = useState();
+  const [destination, setDestination] = useState(null);
+  const [fields, setFields] = useState(null);
+  const [category, setCategory] = useState(null);
+  const [imageAsset, setImageAsset] = useState(null);
   const [wrongImageType, setWrongImageType] = useState(false);
 
   const navigate = useNavigate();
