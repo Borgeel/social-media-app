@@ -12,16 +12,15 @@ import Pins from "./Pins";
 import { client } from "../client";
 import { userQuery } from "../utils/data";
 
+import fetchUser from "../utils/fetchUser";
+
 function Home() {
   const [user, setUser] = useState(null);
   const [toggleSidebar, setToggleSidebar] = useState(false);
 
   const scrollRef = useRef(null);
 
-  const userInfo =
-    localStorage.getItem("user") !== "undefined"
-      ? JSON.parse(localStorage.getItem("user"))
-      : localStorage.clear();
+  const userInfo = fetchUser();
 
   useEffect(() => {
     // Get user id with sanity query
