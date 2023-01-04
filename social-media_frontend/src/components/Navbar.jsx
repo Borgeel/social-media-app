@@ -3,9 +3,14 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { IoMdAdd, IoMdSearch } from "react-icons/io";
+import { AiOutlineLogout } from "react-icons/ai";
+import { googleLogout } from "@react-oauth/google";
+import { useLogout } from "../utils/useLogout";
 
 const Navbar = ({ searchTerm, setSearchTerm, user }) => {
   const navigate = useNavigate();
+
+  const logout = useLogout();
 
   if (!user) return null;
 
@@ -32,6 +37,17 @@ const Navbar = ({ searchTerm, setSearchTerm, user }) => {
         <Link to={`user-profile/${user?._id}`} className="hidden md:block">
           <img src={user.image} alt="user" className="w-14 h-12 rounded-lg" />
         </Link>
+        <div className="hidden md:block ">
+          {user?._id && (
+            <button
+              className="bg-white p-2 rounded-full cursor-pointer outline-none shadow-md"
+              type="button"
+              onClick={() => googleLogout(logout())}
+            >
+              <AiOutlineLogout size={30} color="red" />
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

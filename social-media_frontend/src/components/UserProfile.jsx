@@ -3,6 +3,7 @@ import { AiOutlineLogout } from "react-icons/ai";
 import { useParams, useNavigate } from "react-router-dom";
 import { googleLogout } from "@react-oauth/google";
 
+import { useLogout } from "../utils/useLogout";
 import {
   userCreatedPinsQuery,
   userQuery,
@@ -25,9 +26,11 @@ const UserProfile = () => {
   const [text, setText] = useState("Created");
   const [activeBtn, setActiveBtn] = useState("created");
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const { userId } = useParams();
+
+  const logout = useLogout();
 
   useEffect(() => {
     const query = userQuery(userId);
@@ -47,12 +50,12 @@ const UserProfile = () => {
     }
   }, [text, userId]);
 
-  const logout = () => {
-    localStorage.clear();
-    sessionStorage.clear();
+  // const logout = () => {
+  //   localStorage.clear();
+  //   sessionStorage.clear();
 
-    navigate("/login");
-  };
+  //   navigate("/login");
+  // };
 
   if (!user) {
     return <Spinner message="Loading profile..." />;
