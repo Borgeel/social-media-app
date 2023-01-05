@@ -2,16 +2,7 @@ import React, { useState } from "react";
 
 import { Routes, Route } from "react-router-dom";
 
-import {
-  CreatePin,
-  Feed,
-  Login,
-  Navbar,
-  PinDetail,
-  Search,
-  Sidebar,
-  UserProfile,
-} from "../components";
+import { CreatePin, Feed, Navbar, PinDetail, Search } from "../components";
 
 const Pins = ({ user }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -37,10 +28,7 @@ const Pins = ({ user }) => {
           <Route
             path="/search"
             element={
-              <CreatePin
-                searchTerm={searchTerm}
-                setSearchTerm={setSearchTerm}
-              />
+              <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
             }
           />
         </Routes>
