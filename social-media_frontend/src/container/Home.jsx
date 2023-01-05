@@ -1,24 +1,19 @@
 import React, { useState, useRef, useEffect } from "react";
-
+import { Link, Route, Routes } from "react-router-dom";
 import { HiMenu } from "react-icons/hi";
 import { AiFillCloseCircle } from "react-icons/ai";
+
 import logo from "../assets/logo.png";
-
-import { Link, Route, Routes, useNavigate } from "react-router-dom";
-
 import { Sidebar, UserProfile } from "../components";
 import Pins from "./Pins";
-
 import { client } from "../client";
 import { userQuery } from "../utils/data";
-
 import fetchUser from "../utils/fetchUser";
 
 function Home() {
   const [user, setUser] = useState(null);
   const [toggleSidebar, setToggleSidebar] = useState(false);
 
-  const navigate = useNavigate();
   const scrollRef = useRef(null);
 
   const userInfo = fetchUser();
@@ -30,10 +25,6 @@ function Home() {
     client.fetch(query).then((data) => {
       setUser(data[0]);
     });
-
-    if (!user) {
-      navigate("/login");
-    }
   }, []);
 
   useEffect(() => {
