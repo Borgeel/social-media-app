@@ -4,7 +4,7 @@ import { HiMenu } from "react-icons/hi";
 import { AiFillCloseCircle } from "react-icons/ai";
 import logo from "../assets/logo.png";
 
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
 
 import { Sidebar, UserProfile } from "../components";
 import Pins from "./Pins";
@@ -18,6 +18,7 @@ function Home() {
   const [user, setUser] = useState(null);
   const [toggleSidebar, setToggleSidebar] = useState(false);
 
+  const navigate = useNavigate();
   const scrollRef = useRef(null);
 
   const userInfo = fetchUser();
@@ -34,6 +35,10 @@ function Home() {
   useEffect(() => {
     scrollRef.current.scrollTo(0, 0);
   }, []);
+
+  if (!user) {
+    navigate("/login");
+  }
 
   return (
     <div className="flex bg-gray-50 md:flex-row flex-col h-screen transition-height duration-75 ease-out">
