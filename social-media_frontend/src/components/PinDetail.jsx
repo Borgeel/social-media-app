@@ -138,7 +138,7 @@ const PinDetail = ({ user }) => {
           >
             <img
               className="w-10 h-10 rounded-full cursor-pointer"
-              src={pinDetail?.postedBy?.image}
+              src={user?.image}
               alt="user-profile"
             />
           </Link>
@@ -161,7 +161,6 @@ const PinDetail = ({ user }) => {
       {pins?.length > 0 ? (
         <>
           <h2 className="text-center font-extrabold mt-8 mb-4">
-            {" "}
             More Like this
           </h2>
           <MasonryLayout pins={pins} />
